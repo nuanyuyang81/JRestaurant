@@ -68,7 +68,7 @@ namespace JRestaurant.WebApi.AuthAttributes
             var erModel = new
             {
                 Success = "false",
-                ErrorCode = "401"
+                Message = "访问未授权"
             };
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, erModel, "application/json");
         }
