@@ -19,6 +19,14 @@ export function addAdmin(data) {
     data
   })
 }
+
+export function deleteAdmin(id) {
+  return request({
+    url: '/admin/manage/InActiveAdmin',
+    method: 'get',
+    params: { id }
+  })
+}
 export function updateAdmin(data) {
   return request({
     url: '/admin/manage/UpdateAdminProfile',

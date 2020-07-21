@@ -14,7 +14,8 @@ namespace JRestaurant.DAL
         /// <returns></returns>
         public static SqlConnection DbConn()
         {
-            string connectionstring = "Server=localhost;Database=Test;User ID=sa;Password=Esoteric$1;Application Name=JRestaurant;Connection Lifetime=300";
+            string connectionstring = "Server=81.70.37.99;Database=JRestaurant;User ID=sa;Password=Esoteric$666;Application Name=JRestaurant;Connection Lifetime=300";
+            //string connectionstring = "Server=localhost;Database=Test;User ID=sa;Password=Esoteric$1;Application Name=JRestaurant;Connection Lifetime=300";
 
             SqlConnection conn = new SqlConnection(connectionstring);
             try
@@ -114,7 +115,7 @@ namespace JRestaurant.DAL
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
+                    if (reader.Read())
                     {
                         return bool.Parse(reader[0].ToString());
                     }
@@ -154,12 +155,16 @@ namespace JRestaurant.DAL
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    return Convert.ToInt32(reader["RowCount"]);
+                    if (reader.Read())
+                    {
+                        return Convert.ToInt32(reader["RowCount"]);
+                    }
                 }
                 catch (SqlException ex)
                 {
                     throw ex;
                 }
+                return 0;
             }
         }
         public static T GetTargetObj<T>(string cmdline, SqlParameter[] parameters)

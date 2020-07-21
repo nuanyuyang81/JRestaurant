@@ -70,7 +70,7 @@ namespace JRestaurant.WebApi.AuthAttributes
                 Success = "false",
                 ErrorCode = "401"
             };
-            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK, erModel, "application/json");
+            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, erModel, "application/json");
         }
     }
 }

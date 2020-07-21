@@ -68,7 +68,7 @@ namespace JRestaurant.WebApi.Controllers.Admin
         [Route("GetTotalCount")]
         public int GetTotalCount()
         {
-            return CommonHandler.GetTotalCount("Vendor");
+            return VendorHandler.GetTotalCount();
         }
     }
 }

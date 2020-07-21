@@ -108,7 +108,7 @@ export default {
             this.$message.success('用户添加成功')
             this.$emit('updateData')
           } else {
-            this.$message.error('用户添加失败')
+            this.$message.error('用户添加失败，请检查该手机号码是否存在')
           }
         }).catch(error => {
           console.log(error)

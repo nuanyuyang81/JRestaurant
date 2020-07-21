@@ -13,7 +13,9 @@ namespace JRestaurant.DAL.Admin
         /// <returns></returns>
         public static bool AddAdmin(Entities.Admin usr)
         {
-            string cmdline = @"INSERT INTO [dbo].[Admin]
+            if (!CheckAdminExist(usr.PhoneNumber))
+            {
+                string cmdline = @"INSERT INTO [dbo].[Admin]
                                        ([Id]
                                        ,[Active]
                                        ,[UserName]
@@ -23,17 +25,19 @@ namespace JRestaurant.DAL.Admin
                                        ,[CreateTime])
                                  VALUES
                                        (@id,@status,@username,@phone,@password,@roleid,@createtime)";
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@id", usr.Id),
-                new SqlParameter("@status", usr.Active),
-                new SqlParameter("@username", usr.UserName),
-                new SqlParameter("@phone", usr.PhoneNumber),
-                new SqlParameter("@password", usr.PasswordHash),
-                new SqlParameter("@roleid", usr.RoleId),
-                new SqlParameter("@createtime", usr.CreateTime),
-            };
-            return SqlHelper.ExecuteNonQuery(cmdline, parameters);
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("@id", usr.Id),
+                    new SqlParameter("@status", usr.Active),
+                    new SqlParameter("@username", usr.UserName),
+                    new SqlParameter("@phone", usr.PhoneNumber),
+                    new SqlParameter("@password", usr.PasswordHash),
+                    new SqlParameter("@roleid", usr.RoleId),
+                    new SqlParameter("@createtime", usr.CreateTime),
+                };
+                return SqlHelper.ExecuteNonQuery(cmdline, parameters);
+            }
+            return false;
         }
 
         /// <summary>
@@ -43,12 +47,12 @@ namespace JRestaurant.DAL.Admin
         /// <returns></returns>
         public static bool InActiveAdmin(Guid id)
         {
-            string cmdline = @"UPDATE [dbo].[Users]
+            string cmdline = @"UPDATE [dbo].[Admin]
                                    SET [Active] = @status
                                  WHERE [Id] = @id";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@status", true),
+                new SqlParameter("@status", false),
                 new SqlParameter("@id", id)
             };
             return SqlHelper.ExecuteNonQuery(cmdline, parameters);
@@ -61,10 +65,7 @@ namespace JRestaurant.DAL.Admin
         /// <returns></returns>
         public static bool CheckAdminExist(string phone)
         {
-            string cmdline = @"SELECT [Id]
-                              FROM [dbo].[Admin]
-                              WHERE EXIST
-                              (SELECT * FROM [dbo].[Users] WHERE [Phone] = @phone)";
+            string cmdline = @"if exists (select Id from [dbo].[Admin] WHERE [PhoneNumber] = @phone) select 'True' else select 'False'";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@phone", phone)
@@ -187,8 +188,13 @@ namespace JRestaurant.DAL.Admin
                                       ,r.[Key] as [RoleKey]             
                                       ,a.[CreateTime]
                                       ,a.[LastLoginTime]
-                                  FROM [dbo].[Admin] a JOIN [dbo].[Roles] r ON a.[RoleId] = r.[Id]";
-            return SqlHelper.ExecuteQuery(cmdline);
+                                  FROM [dbo].[Admin] a JOIN [dbo].[Roles] r ON a.[RoleId] = r.[Id]
+                                  WHERE a.[Active] = @status";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@status", true)
+            };
+            return SqlHelper.ExecuteQuery(cmdline, parameters);
         }
 
         /// <summary>
@@ -211,6 +217,18 @@ namespace JRestaurant.DAL.Admin
                 new SqlParameter("@role", roleId)
             };
             return SqlHelper.ExecuteQuery(cmdline, parameters);
+        }
+
+        public static int GetTotalCount()
+        {
+            string cmdline = @"SELECT COUNT(1) AS [RowCount]
+                                  FROM [dbo].[Admin]
+                                  WHERE [Active] = @status";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@status", true)
+            };
+            return SqlHelper.GetCount(cmdline, parameters);
         }
     }
 }

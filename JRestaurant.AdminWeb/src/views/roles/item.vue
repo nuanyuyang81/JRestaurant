@@ -2,7 +2,12 @@
   <el-card shadow="hover" style="height:150px;text-align:left;">
     <div slot="header" class="clearfix">
       <el-tag>{{ name }}</el-tag>
-      <el-button style="float: right;" type="danger" size="mini" @click="deleteRole">删除权限角色</el-button>
+      <el-popconfirm
+        title="确认要删除该权限角色吗？"
+        @onConfirm="deleteRole(id)"
+      >
+        <el-button slot="reference" type="danger" icon="el-icon-delete" circle style="float:right" />
+      </el-popconfirm>
     </div>
     <el-row>
       <el-col :span="6">
@@ -15,7 +20,7 @@
       </el-col>
     </el-row>
     <el-dialog
-      title="供应商信息管理"
+      title="权限角色息管理"
       center
       top="5vh"
       :visible.sync="dialogVisible"

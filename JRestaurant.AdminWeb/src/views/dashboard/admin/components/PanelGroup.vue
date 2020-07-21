@@ -63,10 +63,6 @@ import { listFTToday } from '@/api/foodsturnover'
 import { listDTToday } from '@/api/drinksturnover'
 import { listFoodsPOToday } from '@/api/foodspo'
 import { listDrinksPOToday } from '@/api/drinkspo'
-import { listFTByWeek } from '@/api/foodsturnover'
-import { listDTByWeek } from '@/api/drinksturnover'
-import { listFoodsPOByWeek } from '@/api/foodspo'
-import { listDrinksPOByWeek } from '@/api/drinkspo'
 
 export default {
   components: {
@@ -110,32 +106,6 @@ export default {
         }
       })
       return totalFT + totalDT
-    },
-    POList() {
-      var list = [0, 0, 0, 0, 0, 0, 0]
-      this.fPOList.forEach(item => {
-        var index = parseInt(item.AddDate)
-        list[index] += item.Amount
-      })
-      this.dPOList.forEach(item => {
-        var index = parseInt(item.AddDate)
-        list[index] += item.Amount
-      })
-      return list
-    },
-    TOList() {
-      var list = [0, 0, 0, 0, 0, 0, 0]
-      this.ftList.forEach(item => {
-        if (!item.Discount) {
-          var index = parseInt(item.AddDate)
-          list[index] += item.Amount
-        }
-      })
-      this.dtList.forEach(item => {
-        var index = parseInt(item.AddDate)
-        list[index] += item.Amount
-      })
-      return list
     }
   },
   mounted() {
@@ -169,60 +139,10 @@ export default {
     }).catch(error => {
       console.log(error)
     })
-    listFTByWeek(1).then(response => {
-      this.ftList = response
-    }).catch(error => {
-      console.log(error)
-    })
-    listDTByWeek(1).then(response => {
-      this.dtList = response
-    }).catch(error => {
-      console.log(error)
-    })
-    listFoodsPOByWeek(1).then(response => {
-      this.fPOList = response
-    }).catch(error => {
-      console.log(error)
-    })
-    listDrinksPOByWeek(1).then(response => {
-      this.dPOList = response
-    }).catch(error => {
-      console.log(error)
-    })
   },
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
-    },
-    convertWeekDay(weekday) {
-      var day = ''
-      switch (weekday) {
-        case 1:
-          day = '星期一'
-          break
-        case 2:
-          day = '星期二'
-          break
-        case 3:
-          day = '星期三'
-          break
-        case 4:
-          day = '星期四'
-          break
-        case 5:
-          day = '星期五'
-          break
-        case 6:
-          day = '星期六'
-          break
-        case 0:
-          day = '星期天'
-          break
-        default:
-          day = '星期一'
-          break
-      }
-      return day
     }
   }
 }

@@ -32,6 +32,7 @@ const actions = {
     const { phone, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ PhoneNumber: phone.trim(), PasswordHash: md5(password) }).then(response => {
+        console.log(response)
         commit('SET_TOKEN', response.Token)
         commit('SET_PHONE', phone.trim())
         Cookies.set('phone', phone.trim())

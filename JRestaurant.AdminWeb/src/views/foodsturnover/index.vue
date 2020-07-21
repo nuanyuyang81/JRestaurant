@@ -19,28 +19,35 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="Discount"
-        label="折后?"
-        width="100"
-        :filters="[{ text: '折前', value: false }, { text: '折后', value: true }]"
-        :filter-method="filterDiscount"
-        filter-placement="bottom-end"
-      >
-        <template slot-scope="{row}">
-          <i v-if="row.Discount" class="el-icon-check" />
-          <i v-else class="el-icon-close" />
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="Amount"
-        label="营业金额"
+        label="营收金额"
       >
         <template slot-scope="{row}">
           <template v-if="row.editable">
-            <el-input-number v-model="row.Amount" :precision="2" :step="0.1" style="width:160px" />
+            <el-input-number v-model="row.Amount" controls-position="right" :min="0" :precision="2" :step="1" />
             <el-button v-if="row.editable" type="warning" style="margin-left:8px" @click="cancelEdit(row)">取消</el-button>
           </template>
           <span v-else>{{ row.Amount }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="Discount"
+        label="折扣"
+      >
+        <template slot-scope="{row}">
+          <template v-if="row.editable">
+            <el-input-number v-model="row.Discount" controls-position="right" :min="0.01" :max="1" :precision="2" :step="0.01" />
+            <el-button v-if="row.editable" type="warning" style="margin-left:8px" @click="cancelEdit(row)">取消</el-button>
+          </template>
+          <span v-else>{{ row.Discount }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="折后营收"
+        width="100"
+      >
+        <template slot-scope="{row}">
+          <span>{{ row.Amount * row.Discount }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -55,6 +62,10 @@
       <el-table-column
         prop="UserName"
         label="添加人"
+      />
+      <el-table-column
+        prop="Comments"
+        label="备注"
       />
       <el-table-column
         prop="CreateTime"
@@ -87,7 +98,7 @@
       :destroy-on-close="true"
     >
       <template slot="title">
-        <span style="text-align:center; font-weight:bold;font-size:20px">料理食材进货管理</span>
+        <span style="text-align:center; font-weight:bold;font-size:20px">料理营业额管理</span>
       </template>
       <add @updateData="refreshData(1)" />
     </el-drawer>
@@ -134,7 +145,7 @@ export default {
       row.editable = true
     },
     confirmEdit(row) {
-      updateFT({ VendorId: row.VendorId, Amount: row.Amount, AddDate: row.AddDate, Comments: row.Comments, OwnerId: Cookies.get('uid'), Id: row.Id }).then(response => {
+      updateFT({ Id: row.Id, Amount: row.Amount, Discount: row.Discount, TypeId: row.TypeId, AddDate: row.AddDate, OwnerId: Cookies.get('uid'), Comments: row.Comments }).then(response => {
         if (response) {
           this.$message.success('料理营业额记录更新成功')
           this.refreshData(1)
@@ -163,9 +174,6 @@ export default {
     addFT() {
       this.targetId = null
       this.ftDialogVisible = true
-    },
-    filterDiscount(value, row) {
-      return row.Discount === value
     },
     convertWeekDay(weekday) {
       var day = ''

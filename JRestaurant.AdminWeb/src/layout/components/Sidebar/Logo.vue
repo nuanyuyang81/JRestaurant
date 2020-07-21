@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: '后台管理系统',
-      logo: 'https://car3.autoimg.cn/cardfs/series/g27/M05/AB/2E/100x100_f40_autohomecar__wKgHHls8hiKADrqGAABK67H4HUI503.png'
+      logo: 'http://cdn.hktd15k.10.10.8.109.scdn.td98.com/jp.mediafirst.cn/app.png'
     }
   }
 }

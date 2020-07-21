@@ -2,7 +2,12 @@
   <el-card shadow="hover" style="height:150px;text-align:left;">
     <div slot="header" class="clearfix">
       <el-tag>{{ name }}</el-tag>
-      <el-button style="float: right;" type="danger" size="mini" @click="deleteType">删除营业额分类</el-button>
+      <el-popconfirm
+        title="确认要删除该营业额类型吗？"
+        @onConfirm="deleteType(id)"
+      >
+        <el-button slot="reference" type="danger" icon="el-icon-delete" circle style="float:right" />
+      </el-popconfirm>
     </div>
     <el-row>
       <el-col :span="6">

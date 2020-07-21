@@ -1,17 +1,12 @@
 ﻿using JRestaurant.DAL;
 using JRestaurant.DAL.Admin;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace JRestaurant.WebApi.Controllers
 {
-    [Route("api/weixin")]
+    [RoutePrefix("weixin")]
     public class WeiXinController : ApiController
     {
         #region 料理食材营业额
@@ -80,6 +75,16 @@ namespace JRestaurant.WebApi.Controllers
         public JArray GetDrinksPOByToDay()
         {
             DataSet ds = DrinksPOHandler.GetDrinksPOByToDay();
+            return CommonHandler.TransferArrayFromDS(ds);
+        }
+        #endregion
+
+        #region 供应商
+        [HttpGet]
+        [Route("ListVendorByAim")]
+        public JArray ListVendorByAim(int aim)
+        {
+            DataSet ds = VendorHandler.ListVendorByAim(aim);
             return CommonHandler.TransferArrayFromDS(ds);
         }
         #endregion

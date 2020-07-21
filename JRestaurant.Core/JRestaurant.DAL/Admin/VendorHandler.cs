@@ -143,5 +143,17 @@ namespace JRestaurant.DAL.Admin
             };
             return SqlHelper.ExecuteQuery(cmdline, parameters);
         }
+
+        public static int GetTotalCount()
+        {
+            string cmdline = @"SELECT COUNT(1) AS [RowCount]
+                                  FROM [dbo].[Vendor]
+                                  WHERE [Active] = @status";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@status", true)
+            };
+            return SqlHelper.GetCount(cmdline, parameters);
+        }
     }
 }

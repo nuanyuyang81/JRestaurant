@@ -21,10 +21,11 @@ namespace JRestaurant.DAL.Admin
                                         ,[AddDate]
                                         ,[WeekDay]
                                         ,[OwnerId]
+                                        ,[Comments]
                                         ,[CreateTime]
                                         ,[LastUpdateTime])
                                     VALUES
-                                        (@amount, @discount, @typeid, @adddate, @weekday, @ownerid, @createtime, @lastupdatetime)";
+                                        (@amount, @discount, @typeid, @adddate, @weekday, @ownerid, @comments, @createtime, @lastupdatetime)";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@amount", dt.Amount),
@@ -33,10 +34,12 @@ namespace JRestaurant.DAL.Admin
                 new SqlParameter("@adddate", dt.AddDate),
                 new SqlParameter("@weekday", DateTime.Parse(dt.AddDate).DayOfWeek),
                 new SqlParameter("@ownerid", dt.OwnerId),
+                new SqlParameter("@comments", dt.Comments),
                 new SqlParameter("@createtime", dt.CreateTime),
                 new SqlParameter("@lastupdatetime", dt.LastUpdateTime)
             };
             return SqlHelper.ExecuteNonQuery(cmdline, parameters);
+
         }
 
         /// <summary>
@@ -46,15 +49,16 @@ namespace JRestaurant.DAL.Admin
         /// <returns></returns>
         public static bool UpdateDrinksTurnOver(DrinksTurnOver dt)
         {
-            string cmdline = @"UPDATE [dbo].[DrinksTurnOver]
+            string cmdline = @"UPDATE [dbo].[FoodsTurnOver]
                                    SET [Amount] = @amount
                                       ,[Discount] = @discount
                                       ,[TypeId] = @typeid
                                       ,[AddDate] = @adddate
                                       ,[WeekDay] = @weekday
                                       ,[OwnerId] = @ownerid
+                                      ,[Comments] = @comments
                                       ,[CreateTime] = @createtime
-                                      ,[LastUpdateTime] = @lastudpatetime
+                                      ,[LastUpdateTime] = @lastupdatetime
                                  WHERE [Id] = @id";
             SqlParameter[] parameters =
             {
@@ -65,6 +69,7 @@ namespace JRestaurant.DAL.Admin
                 new SqlParameter("@adddate", dt.AddDate),
                 new SqlParameter("@weekday", DateTime.Parse(dt.AddDate).DayOfWeek),
                 new SqlParameter("@ownerid", dt.OwnerId),
+                new SqlParameter("@comments", dt.Comments),
                 new SqlParameter("@createtime", dt.CreateTime),
                 new SqlParameter("@lastupdatetime", dt.LastUpdateTime)
             };

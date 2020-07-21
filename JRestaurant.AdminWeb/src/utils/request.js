@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
@@ -45,27 +45,39 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    // if the custom code is not 20000, it is judged as an error.
-    if (!res) {
-      Message({
-        message: res.message || '出错了',
-        type: 'error',
-        duration: 5 * 1000
-      })
+    // if (!res) {
+    //   if (res) {
+    //     Message({
+    //       message: res.Message || '出错了',
+    //       type: 'error',
+    //       duration: 5 * 1000
+    //     })
+    //   }
 
-      if (res.Message === 'Token过期' || res.Message === '无效Token') {
-        // to re-login
-        MessageBox.confirm('您已退出登录，您可以停留在当前页面，或者重新登录', '确认退出', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
+    //   if (res.Message === 'Token过期' || res.Message === '无效Token') {
+    //     // to re-login
+    //     MessageBox.confirm('您已退出登录，您可以停留在当前页面，或者重新登录', '确认退出', {
+    //       confirmButtonText: '重新登录',
+    //       cancelButtonText: '取消',
+    //       type: 'warning'
+    //     }).then(() => {
+    //       store.dispatch('user/resetToken').then(() => {
+    //         location.reload()
+    //       })
+    //     })
+    //   }
+    //   return Promise.reject(new Error(res.message || 'Error'))
+    // } else
+    if (res.Success != null) {
+      if (!res.Success) {
+        Message({
+          message: res.Message || '出错了',
+          type: 'error',
+          duration: 5 * 1000
         })
+      } else {
+        return res
       }
-      return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res
     }

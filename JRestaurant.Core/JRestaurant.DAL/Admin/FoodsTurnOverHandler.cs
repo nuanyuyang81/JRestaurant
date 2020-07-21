@@ -21,10 +21,11 @@ namespace JRestaurant.DAL.Admin
                                         ,[AddDate]
                                         ,[WeekDay]
                                         ,[OwnerId]
+                                        ,[Comments]
                                         ,[CreateTime]
                                         ,[LastUpdateTime])
                                     VALUES
-                                        (@amount, @discount, @typeid, @adddate, @weekday, @ownerid, @createtime, @lastupdatetime)";
+                                        (@amount, @discount, @typeid, @adddate, @weekday, @ownerid, @comments, @createtime, @lastupdatetime)";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@amount", ft.Amount),
@@ -33,6 +34,7 @@ namespace JRestaurant.DAL.Admin
                 new SqlParameter("@adddate", ft.AddDate),
                 new SqlParameter("@weekday", DateTime.Parse(ft.AddDate).DayOfWeek),
                 new SqlParameter("@ownerid", ft.OwnerId),
+                new SqlParameter("@comments", ft.Comments),
                 new SqlParameter("@createtime", ft.CreateTime),
                 new SqlParameter("@lastupdatetime", ft.LastUpdateTime)
             };
@@ -53,8 +55,9 @@ namespace JRestaurant.DAL.Admin
                                       ,[AddDate] = @adddate
                                       ,[WeekDay] = @weekday
                                       ,[OwnerId] = @ownerid
+                                      ,[Comments] = @comments
                                       ,[CreateTime] = @createtime
-                                      ,[LastUpdateTime] = @lastudpatetime
+                                      ,[LastUpdateTime] = @lastupdatetime
                                  WHERE [Id] = @id";
             SqlParameter[] parameters =
             {
@@ -65,6 +68,7 @@ namespace JRestaurant.DAL.Admin
                 new SqlParameter("@adddate", ft.AddDate),
                 new SqlParameter("@weekday", DateTime.Parse(ft.AddDate).DayOfWeek),
                 new SqlParameter("@ownerid", ft.OwnerId),
+                new SqlParameter("@comments", ft.Comments),
                 new SqlParameter("@createtime", ft.CreateTime),
                 new SqlParameter("@lastupdatetime", ft.LastUpdateTime)
             };

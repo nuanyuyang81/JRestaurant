@@ -16,16 +16,22 @@ namespace JRestaurant.Entities
             get; set;
         }
         // 折扣
-        public bool Discount
+        public double Discount
         {
             get; set;
         }
 
+        
         public int TypeId
         {
             get;set;
         }
         
+        public string Comments
+        {
+            get;set;
+        }
+
         // 实际营业额日期
         public string AddDate { get; set; } = DateTime.Now.ToLongDateString();
         // 本周第几天

@@ -87,12 +87,15 @@ export default {
       this.AddDate = ''
     },
     submit() {
-      this.vendorList.forEach(item => {
+      this.vendorList.forEach((item, index) => {
         addFoodsPO({ VendorId: item.vendorId, Amount: item.Amount, AddDate: this.AddDate, Comments: item.Comments, OwnerId: Cookies.get('uid') }).then(response => {
           if (response) {
             this.$message.success('料理进货记录添加成功')
           } else {
             this.$message.error('料理进货记录添加失败')
+          }
+          if (index === this.vendorList.length - 1) {
+            this.$emit('updateData')
           }
         }).catch(error => {
           console.log(error)

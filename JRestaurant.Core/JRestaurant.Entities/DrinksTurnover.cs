@@ -16,7 +16,7 @@ namespace JRestaurant.Entities
             get; set;
         }
         // 折扣
-        public bool Discount
+        public double Discount
         {
             get; set;
         }
@@ -35,6 +35,10 @@ namespace JRestaurant.Entities
         public Guid OwnerId
         {
             get; set;
+        }
+        public string Comments
+        {
+            get;set;
         }
         // 录入时间
         public DateTime CreateTime { get; set; } = DateTime.Now;

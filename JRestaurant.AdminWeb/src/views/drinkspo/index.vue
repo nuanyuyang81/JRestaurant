@@ -90,7 +90,7 @@
       :destroy-on-close="true"
     >
       <template slot="title">
-        <span style="text-align:center; font-weight:bold;font-size:20px">酒水食材进货管理</span>
+        <span style="text-align:center; font-weight:bold;font-size:20px">酒水进货管理</span>
       </template>
       <addbatch @updateData="refreshData(1)" />
     </el-drawer>

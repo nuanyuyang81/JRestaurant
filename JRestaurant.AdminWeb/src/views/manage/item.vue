@@ -2,12 +2,18 @@
   <el-card shadow="hover" style="height:150px;text-align:left;">
     <div slot="header" class="clearfix">
       <el-tag>{{ name }}</el-tag>
-      <el-button v-if="delable" style="float: right;" type="danger" size="mini" @click="deleteUser">删除用户</el-button>
+      <el-popconfirm
+        v-if="delable"
+        title="确认要删除该用户吗？"
+        @onConfirm="deleteUser(id)"
+      >
+        <el-button slot="reference" type="danger" icon="el-icon-delete" circle style="float:right" />
+      </el-popconfirm>
     </div>
     <el-row>
       <el-col :span="6">
         <svg-icon icon-class="avatar" class="modelImage" />
-        <el-button type="text" @click="updateAdmin">编辑</el-button>
+        <el-button v-if="delable" type="text" @click="updateAdmin">编辑</el-button>
       </el-col>
       <el-col :span="18" style="font-size:12px;padding-left:5px;color:#606266">
         <el-row style="margin:5px;2px">权   限: {{ role }}</el-row>
@@ -34,6 +40,7 @@
 </template>
 <script>
 import Cookies from 'js-cookie'
+import { deleteAdmin } from '@/api/manage'
 import add from './add'
 export default {
   name: 'Item',
@@ -86,6 +93,16 @@ export default {
   },
   methods: {
     deleteUser() {
+      deleteAdmin(this.id).then(response => {
+        if (response) {
+          this.$emit('updateData')
+          this.$message.success('用户：' + this.name + ' - 成功被删除')
+        } else {
+          this.$message.error('删除失败')
+        }
+      }).catch(error => {
+        console.log(error)
+      })
     },
     updateAdmin() {
       this.dialogVisible = true
