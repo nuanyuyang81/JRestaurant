@@ -106,12 +106,15 @@ namespace JRestaurant.DAL.Admin
         {
             string cmdline = @"SELECT f.*, a.[UserName], t.[Name] as [TypeName] FROM [dbo].[FoodsTurnOver] f JOIN [dbo].[TurnOverTypes] t ON f.[TypeId]=t.[Id]
                                 JOIN [dbo].[Admin] a ON f.[OwnerId] = a.[Id]
-                                WHERE f.[CreateTime] > @range";
+                                WHERE f.[AddDate] >= @range AND f.[AddDate] < @rangeend ORDER BY f.[AddDate] asc";
+            DateTime weekstart = CommonHandler.GetWeekStartTime();
             SqlParameter[] parameters =
             {
-                new SqlParameter("@range", DateTime.Now.AddDays(-7 * week))
+                new SqlParameter("@range", week == 1?weekstart:weekstart.AddDays(-7*(week-1))),
+                new SqlParameter("@rangeend", week == 1?weekstart.AddDays(7):weekstart.AddDays(-7*(week-2)))
             };
             return SqlHelper.ExecuteQuery(cmdline, parameters);
+
         }
         /// <summary>
         /// 获取当日料理营业额
@@ -122,7 +125,7 @@ namespace JRestaurant.DAL.Admin
         {
             string cmdline = @"SELECT f.*, a.[UserName], t.[Name] as [TypeName] FROM [dbo].[FoodsTurnOver] f JOIN [dbo].[TurnOverTypes] t ON f.[TypeId]=t.[Id]
                                 JOIN [dbo].[Admin] a ON f.[OwnerId] = a.[Id]
-                                WHERE f.[CreateTime] > @rangeindex AND f.[CreateTime] < @rangeend";
+                                WHERE f.[AddDate] > @rangeindex AND f.[AddDate] < @rangeend";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@rangeindex", Convert.ToDateTime(DateTime.Now.ToString("D").ToString())),

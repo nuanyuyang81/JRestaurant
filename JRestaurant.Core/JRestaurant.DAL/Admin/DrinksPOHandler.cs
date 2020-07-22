@@ -98,10 +98,13 @@ namespace JRestaurant.DAL.Admin
         {
             string cmdline = @"SELECT f.*, v.[Name] as [VendorName], a.[UserName] FROM [dbo].[DrinksPO] f JOIN [dbo].[Vendor] v ON f.[VendorId] = v.[Id]
                                 JOIN [dbo].[Admin] a ON f.[OwnerId] = a.[Id]
-                                WHERE f.[CreateTime] > @range";
+                                WHERE f.[AddDate] >= @range AND f.[AddDate] < @rangeend ORDER BY f.[AddDate] asc";
+            DateTime weekstart = CommonHandler.GetWeekStartTime();
+
             SqlParameter[] parameters =
             {
-                new SqlParameter("@range", DateTime.Now.AddDays(-7 * week))
+                new SqlParameter("@range", week == 1?weekstart:weekstart.AddDays(-7*(week-1))),
+                new SqlParameter("@rangeend", week == 1?weekstart.AddDays(7):weekstart.AddDays(-7*(week-2)))
             };
             return SqlHelper.ExecuteQuery(cmdline, parameters);
         }

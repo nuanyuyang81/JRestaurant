@@ -4,6 +4,10 @@
       <el-button class="filter-item" type="primary" size="mini" icon="el-icon-plus" @click="addDrinksPO">
         添加酒水进货记录
       </el-button>
+      <el-button-group style="float:right;margin-right:20px;">
+        <el-button type="primary" icon="el-icon-arrow-left" :disabled="week===1" @click="goToPWeek">上一周</el-button>
+        <el-button type="primary" @click="goToNWeek">下一周<i class="el-icon-arrow-right el-icon--right" /></el-button>
+      </el-button-group>
     </div>
     <el-table
       :data="drinksPOList"
@@ -113,7 +117,8 @@ export default {
       direction: 'ttb',
       drinksPOList: [],
       targetId: null,
-      editable: false
+      editable: false,
+      week: 1
     }
   },
   mounted() {
@@ -167,6 +172,18 @@ export default {
       this.targetId = null
       this.drinksPODialogVisible = true
     },
+    goToPWeek() {
+      this.week--
+      if (this.week > 0) {
+        this.refreshData(this.week)
+      }
+    },
+    goToNWeek() {
+      this.week++
+      if (this.week > 1) {
+        this.refreshData(this.week)
+      }
+    },
     convertWeekDay(weekday) {
       var day = ''
       switch (weekday) {
@@ -188,7 +205,7 @@ export default {
         case 6:
           day = '星期六'
           break
-        case 7:
+        case 0:
           day = '星期天'
           break
         default:
@@ -215,7 +232,8 @@ export default {
         var dtcomps = dtstr.split(' ')
         dtcomps[1]--
         var convdt = new Date(Date.UTC(dtcomps[0], dtcomps[1], dtcomps[2], dtcomps[3], dtcomps[4], dtcomps[5]))
-        return convdt.toLocaleString()
+        var date = convdt.toLocaleString()
+        return date.substring(0, date.indexOf(','))
       }
       return ''
     }

@@ -8,6 +8,13 @@ namespace JRestaurant.DAL
 {
     public class CommonHandler
     {
+        public static DateTime GetWeekStartTime()
+        {
+            DateTime now = DateTime.Parse(DateTime.Now.ToLongDateString());
+            return now.AddDays(-(int)now.DayOfWeek + 1);
+        }
+
+
         /// <summary>
         /// 分页查询信息
         /// </summary>

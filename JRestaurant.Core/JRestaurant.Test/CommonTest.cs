@@ -18,5 +18,14 @@ namespace JRestaurant.Test
             int result = CommonHandler.GetTotalCount("Admin");
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void GetWeekStartTime()
+        {
+            DateTime weektime = CommonHandler.GetWeekStartTime();
+            Console.WriteLine(weektime);
+
+            Assert.IsNotNull(weektime);
+        }
     }
 }

@@ -4,6 +4,10 @@
       <el-button class="filter-item" type="primary" size="mini" icon="el-icon-plus" @click="addFT">
         添加酒水营业额记录
       </el-button>
+      <el-button-group style="float:right;margin-right:20px;">
+        <el-button type="primary" icon="el-icon-arrow-left" :disabled="week===1" @click="goToPWeek">上一周</el-button>
+        <el-button type="primary" @click="goToNWeek">下一周<i class="el-icon-arrow-right el-icon--right" /></el-button>
+      </el-button-group>
     </div>
     <el-table
       :data="dtList"
@@ -68,12 +72,12 @@
         label="备注"
       />
       <el-table-column
-        prop="CreateTime"
-        label="添加时间"
+        prop="AddDate"
+        label="添加日期"
         width="150"
       >
         <template slot-scope="{row}">
-          <span>{{ timeformat(row.CreateTime) }}</span>
+          <span>{{ timeformat(row.AddDate) }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -121,7 +125,8 @@ export default {
       direction: 'ttb',
       dtList: [],
       targetId: null,
-      editable: false
+      editable: false,
+      week: 1
     }
   },
   mounted() {
@@ -175,6 +180,18 @@ export default {
       this.targetId = null
       this.dtDialogVisible = true
     },
+    goToPWeek() {
+      this.week--
+      if (this.week > 0) {
+        this.refreshData(this.week)
+      }
+    },
+    goToNWeek() {
+      this.week++
+      if (this.week > 1) {
+        this.refreshData(this.week)
+      }
+    },
     convertWeekDay(weekday) {
       var day = ''
       switch (weekday) {
@@ -223,7 +240,8 @@ export default {
         var dtcomps = dtstr.split(' ')
         dtcomps[1]--
         var convdt = new Date(Date.UTC(dtcomps[0], dtcomps[1], dtcomps[2], dtcomps[3], dtcomps[4], dtcomps[5]))
-        return convdt.toLocaleString()
+        var date = convdt.toLocaleString()
+        return date.substring(0, date.indexOf(','))
       }
       return ''
     }

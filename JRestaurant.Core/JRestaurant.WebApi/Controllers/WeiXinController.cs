@@ -17,7 +17,6 @@ namespace JRestaurant.WebApi.Controllers
             DataSet ds = FoodsTurnOverHandler.ListFoodsTurnOverByWeek(week);
             return CommonHandler.TransferArrayFromDS(ds);
         }
-
         [HttpGet]
         [Route("ListFoodsTurnOverToday")]
         public JArray ListFoodsTurnOverToday()
