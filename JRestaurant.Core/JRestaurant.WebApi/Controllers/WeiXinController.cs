@@ -87,5 +87,15 @@ namespace JRestaurant.WebApi.Controllers
             return CommonHandler.TransferArrayFromDS(ds);
         }
         #endregion
+
+        #region 营业额类型
+        [HttpGet]
+        [Route("ListTurnOverTypeByAim")]
+        public JArray ListTurnOverTypeByAim(int aim)
+        {
+            DataSet ds = TurnOverTypesHanlder.ListTurnOverTypeByAim(aim);
+            return CommonHandler.TransferArrayFromDS(ds);
+        }
+        #endregion
     }
 }
