@@ -25,6 +25,7 @@
     "pages/manage/indexes",
     "pages/manage/animation",
     "pages/manage/drawer",
+    "pages/manage/home",
     "pages/manage/verticalnav",
     "pages/views/vendor",
     "pages/views/analysis",
@@ -40,7 +41,7 @@
   "subPackages": [],
   "window": {
     "navigationBarBackgroundColor": "#0081ff",
-    "navigationBarTitleText": "ColorUi for UniApp",
+    "navigationBarTitleText": "餐厅管理系统",
     "navigationStyle": "custom",
     "navigationBarTextStyle": "white"
   },

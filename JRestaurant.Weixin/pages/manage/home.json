@@ -1,4 +1,4 @@
 {
-  "component": true,
+  "navigationStyle": "custom",
   "usingComponents": {}
 }
