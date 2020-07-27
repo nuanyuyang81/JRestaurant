@@ -127,15 +127,16 @@ namespace JRestaurant.DAL.Admin
         /// <returns></returns>
         public static DataSet ListVendorByAim(int aimType)
         {
-            string cmdline = @"SELECT [Id]
-                                    ,[Name]
-                                    ,[AimType]
-                                    ,[OwnerId]
-                                    ,[Comments]
-                                    ,[CreateTime]
-                                    ,[LastUpdateTime]
-                                FROM[dbo].[Vendor]
-                                WHERE ([AimType] = @aim OR [AimType]=2) AND [Active]=@status";
+            string cmdline = @"SELECT v.[Id]
+                                    ,v.[Name]
+                                    ,a.[UserName]
+                                    ,v.[AimType]
+                                    ,v.[OwnerId]
+                                    ,v.[Comments]
+                                    ,v.[CreateTime]
+                                    ,v.[LastUpdateTime]
+                                FROM [dbo].[Vendor] v JOIN [dbo].[Admin] a ON v.[OwnerId] = a.[Id]
+                                WHERE (v.[AimType] = @aim OR v.[AimType]=2) AND v.[Active]=@status";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@aim", aimType),
