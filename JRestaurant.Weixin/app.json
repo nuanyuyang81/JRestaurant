@@ -50,6 +50,5 @@
     "cu-custom": "/colorui/components/cu-custom",
     "plugin-table": "/pages/component/plugin-table/plugin-table",
     "discount-table": "/pages/component/discount-table/discount-table"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }
