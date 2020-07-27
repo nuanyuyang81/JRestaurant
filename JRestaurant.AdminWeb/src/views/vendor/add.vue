@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-form label-width="120px" :rules="rules" label-position="left" :model="targetVendor" size="mini">
+    <el-form label-width="80px" :rules="rules" label-position="left" :model="targetVendor" size="mini" style="max-width:600px; margin-left:auto;margin-right:auto">
       <el-form-item label="供应商名" prop="Name">
         <el-input v-model="targetVendor.Name" />
       </el-form-item>

@@ -51,7 +51,7 @@
         width="100"
       >
         <template slot-scope="{row}">
-          <span>{{ row.Amount * row.Discount }}</span>
+          <span>{{ toFixed(row.Amount, row.Discount) }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -149,13 +149,17 @@ export default {
     edit(row) {
       row.editable = true
     },
+    toFixed(amount, discount) {
+      var multiple = parseFloat(amount) * parseFloat(discount)
+      return Math.floor(multiple * 100) / 100
+    },
     confirmEdit(row) {
       updateDT({ Id: row.Id, Amount: row.Amount, Discount: row.Discount, TypeId: row.TypeId, AddDate: row.AddDate, OwnerId: Cookies.get('uid'), Comments: row.Comments }).then(response => {
         if (response) {
-          this.$message.success('料理营业额记录更新成功')
+          this.$message.success('酒水营业额记录更新成功')
           this.refreshData(1)
         } else {
-          this.$message.error('料理营业额记录更新失败')
+          this.$message.error('酒水营业额记录更新失败')
         }
       }).catch(error => {
         console.log(error)
