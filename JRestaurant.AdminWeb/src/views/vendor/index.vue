@@ -25,7 +25,7 @@
       center
       top="5vh"
       :visible.sync="vendorDialogVisible"
-      width="30%"
+      :width="ratio"
     >
       <add @updateData="refreshData(0)" />
     </el-dialog>
@@ -47,6 +47,16 @@ export default {
       vendorDialogVisible: false,
       AimType: '料理',
       aimList: ['料理', '酒水']
+    }
+  },
+  computed: {
+    ratio() {
+      var width = window.screen.width
+      if (width < 1200) {
+        return '90%'
+      } else {
+        return '30%'
+      }
     }
   },
   mounted() {

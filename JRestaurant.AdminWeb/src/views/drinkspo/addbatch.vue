@@ -15,7 +15,7 @@
         </el-form-item>
       </el-form>
     </el-row>
-    <el-table :data="vendorList" border fit style="width: 100%">
+    <el-table :data="vendorList" border fit style="width: 100%" :max-height="maxHeight">
       <el-table-column
         label="序列"
         type="index"
@@ -54,6 +54,7 @@ export default {
     return {
       vendorList: [],
       AddDate: '',
+      maxHeight: document.body.offsetHeight - 220,
       rules: {
         VendorId: [
           { required: true, trigger: 'blur' }
@@ -71,6 +72,12 @@ export default {
     }
   },
   mounted() {
+    this.maxHeight = document.body.offsetHeight - 220
+    window.onresize = () => {
+      return (() => {
+        this.maxHeight = document.body.offsetHeight - 220
+      })()
+    }
     var date = new Date()
     this.AddDate = this.dateFormat('YYYY-mm-dd HH:MM:SS', date)
     ListVendorByAim(1).then(response => {

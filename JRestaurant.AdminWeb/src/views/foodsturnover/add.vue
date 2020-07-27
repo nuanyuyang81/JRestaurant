@@ -20,7 +20,7 @@
           <span>料理营业额</span>
         </div>
         <el-button type="primary" style="margin-left:auto;margin-right:auto" @click="addTurnOver">添加一条营业额记录</el-button>
-        <el-table :data="addList">
+        <el-table :data="addList" :max-height="maxHeight">
           <el-table-column
             prop="TypeId"
             label="营业额类型"
@@ -110,6 +110,7 @@ export default {
       ],
       discountTypeList: [],
       AddDate: '',
+      maxHeight: document.body.offsetHeight - 400,
       rules: {
         VendorId: [
           { required: true, trigger: 'blur' }
@@ -143,6 +144,12 @@ export default {
     }
   },
   mounted() {
+    this.maxHeight = document.body.offsetHeight - 400
+    window.onresize = () => {
+      return (() => {
+        this.maxHeight = document.body.offsetHeight - 400
+      })()
+    }
     var date = new Date()
     this.AddDate = this.dateFormat('YYYY-mm-dd HH:MM:SS', date)
     listTypesByAim(0).then(response => {

@@ -22,7 +22,7 @@
       center
       top="5vh"
       :visible.sync="typeDialogVisible"
-      width="30%"
+      :width="ratio"
     >
       <add @updateData="refreshData" />
     </el-dialog>
@@ -42,6 +42,16 @@ export default {
       typeList: [],
       loadType: false,
       typeDialogVisible: false
+    }
+  },
+  computed: {
+    ratio() {
+      var width = window.screen.width
+      if (width < 1200) {
+        return '90%'
+      } else {
+        return '30%'
+      }
     }
   },
   mounted() {
