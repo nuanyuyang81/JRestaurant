@@ -151,7 +151,7 @@ export default {
       })()
     }
     var date = new Date()
-    this.AddDate = this.dateFormat('YYYY-mm-dd HH:MM:SS', date)
+    this.AddDate = this.dateFormat('YYYY/mm/dd HH:MM:SS', date)
     listTypesByAim(1).then(response => {
       this.typeList = response
     }).catch(error => {
@@ -163,7 +163,6 @@ export default {
       this.AddDate = ''
     },
     delAddItem(index) {
-      console.log(index)
       this.addList.splice(index, 1)
     },
     addTurnOver() {
@@ -175,16 +174,15 @@ export default {
       })
     },
     submit() {
+      var success = true
+      var validAmount = true
+      var validType = true
       this.addList.forEach((item, index) => {
-        console.log(item.TypeId)
         if (typeof (item.TypeId) !== undefined && item.TypeId != null && item.TypeId > 0) {
-          console.log(item.TypeId)
           if (item.Amount > 0 && item.Discount > 0) {
             addDT({ Amount: item.Amount, Discount: item.Discount, TypeId: item.TypeId, AddDate: this.AddDate, Comments: item.Comments, OwnerId: Cookies.get('uid') }).then(response => {
-              if (response) {
-                this.$message.success('酒水营业额记录记录添加成功')
-              } else {
-                this.$message.error('酒水营业额记录添加失败')
+              if (!response) {
+                success = false
               }
               if (index === this.addList.length - 1) {
                 this.$emit('updateData')
@@ -193,12 +191,25 @@ export default {
               console.log(error)
             })
           } else {
-            this.$message.error('不允许添加金额为 0 或者 折扣为 0 的营业额记录')
+            validAmount = false
+            success = false
           }
         } else {
-          this.$message.error('请选择营业额类型')
+          validType = false
+          success = false
         }
       })
+      if (success) {
+        this.$message.success('酒水营业额记录记录添加成功')
+      } else if (validAmount && validType) {
+        this.$message.error('酒水营业额记录添加失败')
+      }
+      if (!validAmount) {
+        this.$message.error('不允许添加金额为 0 或者 折扣为 0 的营业额记录')
+      }
+      if (!validType) {
+        this.$message.error('请选择营业额类型')
+      }
     },
     dateFormat(fmt, date) {
       let ret

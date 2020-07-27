@@ -51,7 +51,7 @@
         width="100"
       >
         <template slot-scope="{row}">
-          <span>{{ row.Amount * row.Discount }}</span>
+          <span>{{ toFixed(row.Amount, row.Discount) }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -148,6 +148,10 @@ export default {
     },
     edit(row) {
       row.editable = true
+    },
+    toFixed(amount, discount) {
+      var multiple = parseFloat(amount) * parseFloat(discount)
+      return Math.floor(multiple * 100) / 100
     },
     confirmEdit(row) {
       updateFT({ Id: row.Id, Amount: row.Amount, Discount: row.Discount, TypeId: row.TypeId, AddDate: row.AddDate, OwnerId: Cookies.get('uid'), Comments: row.Comments }).then(response => {
