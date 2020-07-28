@@ -1,0 +1,111 @@
+
+page.data-v-7c5a5f96 {
+	background: #F2F2F2;
+	width: 750rpx;
+	overflow-x: hidden;
+}
+.qiun-padding.data-v-7c5a5f96 {
+	padding: 2%;
+	width: 96%;
+}
+.qiun-wrap.data-v-7c5a5f96 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.qiun-rows.data-v-7c5a5f96 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: horizontal !important;
+	-webkit-box-direction: normal !important;
+	-webkit-flex-direction: row !important;
+	        flex-direction: row !important;
+}
+.qiun-columns.data-v-7c5a5f96 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical !important;
+	-webkit-box-direction: normal !important;
+	-webkit-flex-direction: column !important;
+	        flex-direction: column !important;
+}
+.qiun-common-mt.data-v-7c5a5f96 {
+	margin-top: 10rpx;
+}
+.qiun-bg-white.data-v-7c5a5f96 {
+	background: #FFFFFF;
+}
+.qiun-title-bar.data-v-7c5a5f96 {
+	width: 96%;
+	padding: 10rpx 2%;
+	-webkit-flex-wrap: nowrap;
+	        flex-wrap: nowrap;
+}
+.qiun-title-dot-light.data-v-7c5a5f96 {
+	border-left: 10rpx solid #0ea391;
+	padding-left: 10rpx;
+	font-size: 32rpx;
+	color: #000000
+}
+
+/* 通用样式 */
+.qiun-charts.data-v-7c5a5f96 {
+	width: 750rpx;
+	height: 500rpx;
+	background-color: #FFFFFF;
+}
+.charts.data-v-7c5a5f96 {
+	width: 750rpx;
+	height: 500rpx;
+	background-color: #FFFFFF;
+}
+
+/* 横屏样式 */
+.qiun-charts-rotate.data-v-7c5a5f96 {
+	width: 700rpx;
+	height: 1100rpx;
+	background-color: #FFFFFF;
+	padding: 25rpx;
+}
+.charts-rotate.data-v-7c5a5f96 {
+	width: 700rpx;
+	height: 1100rpx;
+	background-color: #FFFFFF;
+}
+
+/* 圆弧进度样式 */
+.qiun-charts3.data-v-7c5a5f96 {
+	width: 750rpx;
+	height: 250rpx;
+	background-color: #FFFFFF;
+	position: relative;
+}
+.charts3.data-v-7c5a5f96 {
+	position: absolute;
+	width: 250rpx;
+	height: 250rpx;
+	background-color: #FFFFFF;
+}
+.qiun-tip.data-v-7c5a5f96 {
+	display: block;
+	width: auto;
+	overflow: hidden;
+	padding: 15rpx;
+	height: 30rpx;
+	line-height: 30rpx;
+	margin: 10rpx;
+	background: #ff9933;
+	font-size: 30rpx;
+	border-radius: 8rpx;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	text-align: center;
+	border: 1px solid #dc7004;
+	color: #FFFFFF;
+}
+
