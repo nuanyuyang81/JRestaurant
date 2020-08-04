@@ -10,6 +10,7 @@
             type="date"
             placeholder="选择进货日期"
             style="width:150px"
+            value-format="yyyy/MM/dd"
           />
           <el-button type="warning" style="margin-left:10px" @click="clear">清除</el-button>
           <el-button type="primary" @click="submit">提交</el-button>

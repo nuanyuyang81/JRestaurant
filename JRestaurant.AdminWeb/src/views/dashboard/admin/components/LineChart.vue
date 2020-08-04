@@ -6,7 +6,8 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
-
+import { listFTByWeek } from '@/api/foodsturnover'
+import { listDTByWeek } from '@/api/drinksturnover'
 export default {
   mixins: [resize],
   props: {
@@ -25,30 +26,29 @@ export default {
     autoResize: {
       type: Boolean,
       default: true
-    },
-    chartData: {
-      type: Object,
-      required: true
     }
   },
   data() {
     return {
-      chart: null
-    }
-  },
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val)
-      }
+      chart: null,
+      week: 1
     }
   },
   mounted() {
     var chartdata = {
-      expectedData: [100, 120, 161, 134, 105, 160, 165],
-      actualData: [120, 82, 91, 154, 162, 140, 145]
+      FtData: [100, 120, 161, 134, 105, 160, 165],
+      DtData: [120, 82, 91, 154, 162, 140, 145]
     }
+    listFTByWeek(this.week).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
+    listDTByWeek(this.week).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
     this.$nextTick(() => {
       this.initChart(chartdata)
     })
@@ -65,7 +65,7 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(chartData)
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ FtData, DtData } = {}) {
       this.chart.setOption({
         xAxis: {
           data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'],
@@ -94,10 +94,10 @@ export default {
           }
         },
         legend: {
-          data: ['营业额', '进货']
+          data: ['料理营业额', '酒水营业额']
         },
         series: [{
-          name: '营业额', itemStyle: {
+          name: '料理营业额', itemStyle: {
             normal: {
               color: '#FF005A',
               lineStyle: {
@@ -108,12 +108,12 @@ export default {
           },
           smooth: true,
           type: 'line',
-          data: expectedData,
+          data: FtData,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
         },
         {
-          name: '进货',
+          name: '酒水营业额',
           smooth: true,
           type: 'line',
           itemStyle: {
@@ -128,7 +128,7 @@ export default {
               }
             }
           },
-          data: actualData,
+          data: DtData,
           animationDuration: 2800,
           animationEasing: 'quadraticOut'
         }]

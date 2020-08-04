@@ -211,7 +211,7 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background: url('http://cdn.hktd15k.10.10.8.109.scdn.td98.com/jp.mediafirst.cn/bg.jpg');
+  background: url('http://cdn.hktd09t.10.10.8.102.scdn.td98.com/jp.mediafirst.cn/bg.jpg');
   -moz-background-size:100% 100%; background-size:100% 100%;
   overflow: hidden;
 

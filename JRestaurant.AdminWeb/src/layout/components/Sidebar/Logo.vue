@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: '后台管理系统',
-      logo: 'http://cdn.hktd15k.10.10.8.109.scdn.td98.com/jp.mediafirst.cn/app.png'
+      logo: 'http://cdn.hktd09t.10.10.8.102.scdn.td98.com/jp.mediafirst.cn/app.png'
     }
   }
 }

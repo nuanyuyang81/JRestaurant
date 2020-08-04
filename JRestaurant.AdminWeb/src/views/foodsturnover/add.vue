@@ -10,6 +10,7 @@
             type="date"
             placeholder="选择进货日期"
             style="width:150px"
+            value-format="yyyy/MM/dd"
           />
           <el-button type="warning" style="margin-left:10px" @click="clear">清除</el-button>
           <el-button type="primary" @click="submit">提交</el-button>
@@ -179,6 +180,7 @@ export default {
       var success = true
       var validAmount = true
       var validType = true
+      console.log(this.AddDate)
       this.addList.forEach((item, index) => {
         if (typeof (item.TypeId) !== undefined && item.TypeId != null && item.TypeId > 0) {
           if (item.Amount > 0 && item.Discount > 0) {
