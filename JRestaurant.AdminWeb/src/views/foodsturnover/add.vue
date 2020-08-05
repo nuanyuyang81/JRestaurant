@@ -132,16 +132,14 @@ export default {
     totalAmount() {
       var result = 0
       this.addList.forEach(item => {
-        var multiple = parseFloat(item.Amount) * parseFloat(item.Discount)
-        result = result + Math.floor(multiple * 100) / 100
+        result = result + parseFloat(item.Amount)
       })
       return result
     },
     discountAmount() {
       var result = 0
       this.addList.forEach(item => {
-        var multiple = parseFloat(item.Amount) * parseFloat(item.Discount)
-        result = result + Math.floor(multiple * 100) / 100
+        result = result + this.toFixed(item.Amount, item.Discount)
       })
       return result
     }
@@ -214,6 +212,10 @@ export default {
       if (!validType) {
         this.$message.error('请选择营业额类型')
       }
+    },
+    toFixed(amount, discount) {
+      var multiple = parseFloat(amount) * parseFloat(discount)
+      return Math.floor(multiple * 100) / 100
     },
     dateFormat(fmt, date) {
       let ret

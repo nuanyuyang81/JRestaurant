@@ -139,7 +139,7 @@ export default {
     discountAmount() {
       var result = 0
       this.addList.forEach(item => {
-        result = result + parseFloat(item.Amount) * parseFloat(item.Discount)
+        result = result + this.toFixed(item.Amount, item.Discount)
       })
       return result
     }
@@ -211,6 +211,10 @@ export default {
       if (!validType) {
         this.$message.error('请选择营业额类型')
       }
+    },
+    toFixed(amount, discount) {
+      var multiple = parseFloat(amount) * parseFloat(discount)
+      return Math.floor(multiple * 100) / 100
     },
     dateFormat(fmt, date) {
       let ret
